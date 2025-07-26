@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ramoys.ems.exception.ResourceNotFoundException;
 import com.ramoys.ems.model.Employees;
 import com.ramoys.ems.repository.EmployeesRepository;
 
@@ -28,7 +29,7 @@ public class EmployeesService {
 	}
 	
 	public ResponseEntity<Employees> updateEmployee(long id, Employees updatedEmployee) {
-		Employees existingEmployee = employeesRepository.findById(id).get();
+		Employees existingEmployee = employeesRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Id Not Found"));
 		
 		// Manual update of each field
         existingEmployee.setFirstName(updatedEmployee.getFirstName());
@@ -57,7 +58,7 @@ public class EmployeesService {
 	}
 	
 	public ResponseEntity<HttpStatus> deleteEmployee(long id){
-		Employees e = employeesRepository.findById(id).get();
+		Employees e = employeesRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Id Not Found"));
 		employeesRepository.delete(e);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
