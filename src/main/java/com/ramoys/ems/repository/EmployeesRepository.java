@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ramoys.ems.model.Employees;
 
 @Repository
-public interface EmployeesRepository extends JpaRepository<Employees, Integer>{
+public interface EmployeesRepository extends JpaRepository<Employees, Long>{
 
 }
