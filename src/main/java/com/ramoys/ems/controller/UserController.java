@@ -12,7 +12,7 @@ import com.ramoys.ems.service.UserService;
 
 @RestController
 @RequestMapping("/user/api")
-@CrossOrigin(origins = "http://localhost:5173")
+/*@CrossOrigin(origins = "http://localhost:5173")*/
 public class UserController {
 	
 	@Autowired
