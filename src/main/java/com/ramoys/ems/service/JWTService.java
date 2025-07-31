@@ -22,8 +22,8 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JWTService {
 	
-	private String secretKey = "";
-	
+//	private String secretKey = "MySuperSecretKeyForJWTsMySuperSecretKeyForJWTs";
+	private String secretKey="";
 	public JWTService() throws NoSuchAlgorithmException {
 		KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
 		SecretKey sk = keyGen.generateKey();
@@ -37,13 +37,15 @@ public class JWTService {
 				.add(claims)
 				.subject(username)
 				.issuedAt(new Date(System.currentTimeMillis()))
-				.expiration(new Date(System.currentTimeMillis()+3600000))
+				.expiration(new Date(System.currentTimeMillis()+7200000))
 				.and()
 				.signWith(getKey())
 				.compact();
 	}
 
 	private SecretKey getKey() {
+//		byte[] keyBytes = Decoders.BASE64.decode(Base64.getEncoder().encodeToString(secretKey.getBytes()));
+//		byte[] keyBytes = secretKey.getBytes();
 		byte[] keyBytes = Decoders.BASE64.decode(secretKey);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
