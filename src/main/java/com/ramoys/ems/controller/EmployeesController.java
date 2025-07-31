@@ -28,6 +28,11 @@ public class EmployeesController {
 		return employeesService.addEmployee(e);
 	}
 	
+	@PostMapping("/add-multiple")
+	public List<Employees> addMultipleEmployees(@RequestBody List<Employees> e){
+		return employeesService.addMultipleEmployees(e);
+	}
+	
 	@GetMapping("/fetchAll")
 	public List<Employees> fetchAllEmployees(){
 		return employeesService.fetchAllEmployees();

@@ -20,12 +20,15 @@ public class EmployeesService {
 		return employeesRepository.save(e);
 	}
 	
+	public List<Employees> addMultipleEmployees(List<Employees> e){
+		return employeesRepository.saveAll(e);
+	}
 	public List<Employees> fetchAllEmployees(){
 		return employeesRepository.findAll();
 	}
 	
 	public Employees fetchEmployee(long id) {
-		return employeesRepository.findById(id).get();
+		return employeesRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Id Not Found"));
 	}
 	
 	public ResponseEntity<Employees> updateEmployee(long id, Employees updatedEmployee) {
