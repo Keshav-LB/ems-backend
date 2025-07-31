@@ -31,10 +31,11 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
+			.cors(Customizer.withDefaults())
 			.csrf(csrf->csrf.disable())
 			.authorizeHttpRequests(request->request
-											.requestMatchers("/register", "/login").permitAll()
-											.anyRequest().authenticated())
+											.requestMatchers("/user/api/register", "/user/api/login").permitAll()
+											.requestMatchers("/employee/api/v1/**").authenticated())
 			.httpBasic(Customizer.withDefaults())
 			.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
